@@ -9,10 +9,14 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { unstable_noStore as noStore } from 'next/cache';
+
 
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
+
+  noStore()
 
   try {
     // Artificially delay a reponse for demo purposes.
@@ -33,6 +37,8 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
+  noStore()
+
   try {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -53,6 +59,8 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchCardData() {
+  noStore()
+
   try {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
@@ -124,6 +132,8 @@ export async function fetchFilteredInvoices(
 }
 
 export async function fetchInvoicesPages(query: string) {
+  noStore()
+
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -145,6 +155,8 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
+  noStore()
+
   try {
     const data = await sql<InvoiceForm>`
       SELECT

@@ -13,6 +13,10 @@ export default async function InvoicesTable({
 }) {
   const invoices = await fetchFilteredInvoices(query, currentPage);
 
+  // ToDO restrart course here, chapter 11;
+  'You\'re updating the URL on every keystroke, and therefore querying your database on every keystroke! This isn\'t a problem as our application is small, but imagine if your application had thousands of users, each sending a new request to your database on each keystroke.\n' +
+  '\n'
+
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
